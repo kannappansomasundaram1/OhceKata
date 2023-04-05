@@ -2,7 +2,7 @@
 
 public interface IGreeter
 {
-    string GetGreetingMessage();
+    string GetGreetingMessage(string name);
 }
 
 public class Greeter : IGreeter
@@ -14,15 +14,15 @@ public class Greeter : IGreeter
         _dateTime = dateTime;
     }
 
-    public string GetGreetingMessage()
+    public string GetGreetingMessage(string name)
     {
         var currentTime = _dateTime.Now();
-        return currentTime switch 
+        var greeting = currentTime switch 
         {
             {Hour: >= 6 and < 12 } => "¡Buenos días",
             {Hour: >= 12 and < 20 } => "¡Buenas tardes",
             {Hour: >= 20 or < 6} => "¡Buenas noches",
-            //> new TimeOnly(20,0,0) => 
         };
+        return $"{greeting} {name}!";
     }
 }

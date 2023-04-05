@@ -1,24 +1,22 @@
-﻿using System.Diagnostics;
-
-namespace  OhceKata;
+﻿namespace  OhceKata;
 
 public class OhceApp
 {
     private readonly string _name;
     private readonly IConsole _console;
-    private readonly Greeter _greeter;
+    private readonly IGreeter _greeter;
 
-    public OhceApp(string name, IConsole console, IDateTime dateTime)
+    public OhceApp(string name, IConsole console, IGreeter greeter)
     {
         _name = name;
         _console = console;
-        _greeter = new Greeter(dateTime);
+        _greeter = greeter;
     }
 
     public void Start()
     {
-        var buenasNoches = _greeter.GetGreetingMessage();
+        var greetingMessage = _greeter.GetGreetingMessage(_name);
         
-        _console.WriteLine($"{buenasNoches} {_name}!");
+        _console.WriteLine(greetingMessage);
     }
 }
