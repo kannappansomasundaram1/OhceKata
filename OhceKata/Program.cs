@@ -8,8 +8,9 @@ ServiceCollection.AddTransient<IDateTime, DateTimeProvider>();
 ServiceCollection.AddTransient<IConsole, Console>();
 ServiceCollection.AddTransient<IDateTime, DateTimeProvider>();
 ServiceCollection.AddTransient<IEchoGenerator, EchoGenerator>();
+ServiceCollection.AddTransient<OhceApp>();
 var services = ServiceCollection.BuildServiceProvider();
 
-var app = new OhceApp(args[0], services.GetRequiredService<IConsole>(), services.GetRequiredService<IGreeter>(), services.GetRequiredService<IEchoGenerator>());
-app.Start();
+var app = services.GetRequiredService<OhceApp>();
+app.Start(args[0]);
 

@@ -17,7 +17,7 @@ public class OhceAppTests
         _console = Substitute.For<IConsole>();
         _greeter = Substitute.For<IGreeter>();
         _echoGenerator = Substitute.For<IEchoGenerator>();
-        _sut = new OhceApp(_name, _console, _greeter, _echoGenerator);
+        _sut = new OhceApp(_console, _greeter, _echoGenerator);
         _console.ReadLine().Returns(_stopMessage);
     }
     
@@ -26,7 +26,7 @@ public class OhceAppTests
     {
         var expected = "hi";
         _greeter.GetGreetingMessage(_name).Returns(expected);
-        _sut.Start();
+        _sut.Start(_name);
         
         _console.Received().WriteLine(expected);
     }
@@ -36,7 +36,7 @@ public class OhceAppTests
     {
         _console.ReadLine().Returns(_stopMessage);
         
-        _sut.Start();
+        _sut.Start(_name);
         
         _console.Received().WriteLine($"Adios {_name}");
     }
@@ -51,7 +51,7 @@ public class OhceAppTests
         _echoGenerator.Echo(firstInputTobeEchoed).Returns(new [] {"echo1"});
         _echoGenerator.Echo(secondInputTobeEchoed).Returns(new [] {"echo2"});
         
-        _sut.Start();
+        _sut.Start(_name);
         
         _console.Received().WriteLine($"echo1");
         _console.Received().WriteLine($"echo2");
